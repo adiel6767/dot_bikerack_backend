@@ -1,5 +1,6 @@
 # from django.shortcuts import render
-from bike_parking_app.models import User, BikeRackData,Achievements,Badge
+from bike_parking_app.models import CustomUser, BikeRackData,Achievements,Badge
+from rest_framework.generics import GenericAPIView, RetrieveAPIView,RetrieveUpdateAPIView,CreateAPIView,ListAPIView
 from django.contrib.auth import login, logout
 from rest_framework.views import APIView, Response
 from rest_framework import permissions, status, generics
@@ -22,7 +23,6 @@ class UserRegister(APIView):
 
 class UserLogin(APIView):
     permission_classes = (permissions.AllowAny,)
-    authentication_classes = (SessionAuthentication,)
 
     def post(self, request):
         data = request.data
@@ -31,18 +31,31 @@ class UserLogin(APIView):
         serializer = UserLoginSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             user = serializer.check_user(data)
-            login(request, user)
-            return Response(serializer.data, status=status.HTTP_200_OK) 
+            if user:
+                refresh = RefreshToken.for_user(user)
+                return Response({
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                }, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 class UserLogout(APIView):
     permission_classes = (permissions.AllowAny,)
-    authentication_classes = ()
-    def post(self, request):
-        logout(request)
-        return Response(status=status.HTTP_200_OK)
 
-class UserView(generics.RetrieveUpdateAPIView):
-    queryset = User.objects.all()
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserView(RetrieveUpdateAPIView):
+    queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 
@@ -85,5 +98,5 @@ class BadgeView(APIView):
         return Response(serializer.data)
 
 class LeaderboardListView(generics.ListAPIView):
-    queryset = User.objects.all().order_by('-assessment_count')
+    queryset = CustomUser.objects.all().order_by('-assessment_count')
     serializer_class = LeaderboardSerializer

@@ -1,6 +1,8 @@
 # from django.shortcuts import render
 from bike_parking_app.models import CustomUser, BikeRackData,Achievements,Badge
 from rest_framework.generics import GenericAPIView, RetrieveAPIView,RetrieveUpdateAPIView,CreateAPIView,ListAPIView
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
 from django.contrib.auth import login, logout
 from rest_framework.views import APIView, Response
 from rest_framework import permissions, status, generics

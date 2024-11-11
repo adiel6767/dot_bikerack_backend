@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 
-UserModel = get_user_model()
+UserModel = get_user_model() 
 
 def custom_validation(data):
     email = data['email'].strip()
@@ -29,7 +29,6 @@ def validate_email(data):
     return True
 
 def validate_username(data):
-    print('DATA',data)
     username = data['credentials'].strip()
     if not username:
         raise ValidationError('choose another username')

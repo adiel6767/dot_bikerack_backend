@@ -36,7 +36,7 @@ class CustomUser(AbstractUser):
     image_id = models.IntegerField(null=True, blank=True)
     achievements = models.ManyToManyField(Achievements, blank=True)
     badges = models.ManyToManyField(Badge, blank=True)
-    assessment_ids = models.CharField(max_length=10, unique=True, blank=True)
+    assessment_ids = models.CharField(max_length=10, blank=True)
     assessment_count = models.IntegerField(default=0)
     assessment_streak = models.IntegerField(default=0,null=True,blank=True)
     distance_traveled = models.IntegerField(default=0,null=True,blank=True)

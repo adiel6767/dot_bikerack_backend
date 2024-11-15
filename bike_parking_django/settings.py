@@ -104,8 +104,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-DATABASES["default"] = dj_database_url.parse("postgresql://bikeracksposgres1_user:2zL6MN2wHozrAMQL2BL6tVApMT4zMp7y@dpg-csr8lkhu0jms73bdhfdg-a.virginia-postgres.render.com/bikeracksposgres1")
+DATABASE_URL = os.environ.get("DATABASE_URL")
+DATABASES["default"] = dj_database_url.parse(DATABASE_URL)
 
 # User model
 AUTH_USER_MODEL = 'bike_parking_app.CustomUser'
@@ -214,7 +214,7 @@ SIMPLE_JWT = {
 mail = os.environ.get("MAIL")
 mail_pass = os.environ.get("PASSWORD")
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST = 'smtp.office365.com' 
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

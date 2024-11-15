@@ -105,7 +105,7 @@ DATABASES = {
     }
 }
 
-DATABASES["default"] = dj_database_url.parse("postgresql://bikeracksposgres_user:vch8GSxjPWHJIf4DANPcJZisPfMYklmc@dpg-cspv5a1u0jms73fl0gq0-a.virginia-postgres.render.com/bikeracksposgres")
+DATABASES["default"] = dj_database_url.parse("postgresql://bikeracksposgres1_user:2zL6MN2wHozrAMQL2BL6tVApMT4zMp7y@dpg-csr8lkhu0jms73bdhfdg-a.virginia-postgres.render.com/bikeracksposgres1")
 
 # User model
 AUTH_USER_MODEL = 'bike_parking_app.CustomUser'

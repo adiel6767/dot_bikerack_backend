@@ -23,7 +23,7 @@ from django.contrib.auth.tokens import default_token_generator
 def send_verification_email(request, user):
     token = default_token_generator.make_token(user)
     uid = urlsafe_base64_encode(force_bytes(user.pk))
-    frontend_url = "http://127.0.0.1:3000/login"
+    frontend_url = "https://dot-bikerack-frontend.onrender.com/login"
     verification_link = f"{frontend_url}?uid={uid}&token={token}"
     send_mail(
         'Verify your email address',

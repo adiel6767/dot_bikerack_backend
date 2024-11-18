@@ -70,7 +70,7 @@ class resend_verification_email(APIView):
             # Invalidate previous token by generating a new token
             token = account_activation_token.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
-            frontend_url = "http://127.0.0.1:3000/login"
+            frontend_url = "https://dot-bikerack-frontend.onrender.com/login"
             verification_link = f"{frontend_url}?uid={uid}&token={token}"
 
             send_mail(

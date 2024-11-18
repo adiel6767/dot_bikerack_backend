@@ -26,7 +26,7 @@ UserModel = get_user_model()
 
 # Create your views here.
 class UserRegister(APIView):
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,) 
     def post(self, request):
         clean_data = custom_validation(request.data)
         serializer = UserRegisterSerializer(data=clean_data)

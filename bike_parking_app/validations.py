@@ -18,8 +18,9 @@ def custom_validation(data):
     if not username:
         raise ValidationError('choose another username')
     
-    if not phone_number or len(phone_number) < 10:
-        raise ValidationError('invalid phone number, min 10 digits and located in U.S')
+    if phone_number:  
+        if len(phone_number) < 10:
+            raise ValidationError('Invalid phone number, must be at least 10 digits and located in the U.S.')
     return data
 
 def validate_email(data):

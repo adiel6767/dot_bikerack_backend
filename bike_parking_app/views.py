@@ -106,7 +106,7 @@ class PasswordResetRequest(APIView):
 
                 You requested a password reset. Click the link below to reset your password:
 
-                http://{frontend_url}/reset-password?uid={uid}&token={token}
+                https://{frontend_url}/reset-password?uid={uid}&token={token}
 
                 If you did not request this, please ignore this email.
 

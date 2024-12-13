@@ -32,7 +32,7 @@ class MyUserManager(BaseUserManager):
 
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
-    phone_number = models.CharField(max_length=10, unique=True,null=True)
+    phone_number = models.CharField(max_length=10, unique=True,null=True,blank=True)
     image_id = models.IntegerField(null=True, blank=True)
     achievements = models.ManyToManyField(Achievements, blank=True)
     badges = models.ManyToManyField(Badge, blank=True)

@@ -27,16 +27,27 @@ UserModel = get_user_model()
 # Create your views here.
 class UserRegister(APIView):
     permission_classes = (permissions.AllowAny,) 
+
     def post(self, request):
         print(request.data)
+        # Perform custom validation
         clean_data = custom_validation(request.data)
+
+        # Check if phone_number is an empty string and convert it to None
+        if 'phone_number' in clean_data and clean_data['phone_number'] == '':
+            clean_data['phone_number'] = None
+
         serializer = UserRegisterSerializer(data=clean_data)
         if serializer.is_valid(raise_exception=True):
+            # Save the user
             user = serializer.create(clean_data)
             if user:
+                # Send verification email
                 send_verification_email(request, user)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 class VerifyEmail(APIView):
     permission_classes = (permissions.AllowAny,)

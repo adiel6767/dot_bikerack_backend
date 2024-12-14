@@ -53,6 +53,7 @@ class VerifyEmail(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def get(self, request, uidb64, token):
+        print('verify email ',request)
         try:
             uid = urlsafe_base64_decode(uidb64).decode()
             user = get_object_or_404(UserModel, pk=uid)

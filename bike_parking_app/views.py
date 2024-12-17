@@ -111,8 +111,7 @@ class PasswordResetRequest(APIView):
                 token = account_activation_token.make_token(user)
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
                 current_site = get_current_site(request)
-                # frontend_url = "https://dot-bikerack-frontend.onrender.com"
-                frontend_url = "http://127.0.0.1:8000/"
+                frontend_url = "https://dot-bikerack-frontend.onrender.com"
                 mail_subject = 'Reset your password'
                 print('useremail',user.email)
                 message = f"""

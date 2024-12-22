@@ -50,7 +50,8 @@ class CustomUser(AbstractUser):
         return f'{self.username} ({self.email})'
 
     def get_formatted_phone_number(self):
-        # Format the phone number as desired
+        if not self.phone_number:  # Check if phone_number is None or empty
+            return None  # Or return an empty string or a default value like "N/A"
         return f"{self.phone_number[:3]}-{self.phone_number[3:6]}-{self.phone_number[6:]}"
 
         

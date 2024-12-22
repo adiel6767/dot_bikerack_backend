@@ -29,7 +29,6 @@ class UserRegister(APIView):
     permission_classes = (permissions.AllowAny,) 
 
     def post(self, request):
-        print(request.data)
         # Perform custom validation
         clean_data = custom_validation(request.data)
 
